@@ -1,1 +1,1 @@
-synapnote-frontend
+简单前端库，正式开发后所有内容按需修改。
