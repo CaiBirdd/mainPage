@@ -1,6 +1,7 @@
 services:
-  frontend:
+  synapnote-frontend:
     image: synapnote-frontend:latest
+    container_name: synapnote-frontend
     build:
       context: .
       tags:
