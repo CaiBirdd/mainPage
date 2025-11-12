@@ -91,7 +91,7 @@ const activeItem = 'Home'
   &__header {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); //以上两行实现水平居中
     top: 0;
     width: 100vw;
     height: 93px;
@@ -173,16 +173,18 @@ const activeItem = 'Home'
 
   /* 导航链接 */
   &__nav-link {
+    display: inline-block;
     font-family: 'Microsoft YaHei UI', sans-serif;
     font-size: 23px;
     font-weight: 400;
     line-height: 29px;
-    color: rgba(0, 0, 0, 0.8);
+    color: rgba(82, 82, 82, 0.8);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.3s, transform 0.3s;
 
     &:hover {
-      color: #000;
+      color: #000000;
+      transform: scale(1.1);
     }
   }
 
@@ -202,10 +204,10 @@ const activeItem = 'Home'
     line-height: 29px;
     color: #fcfafe;
     cursor: pointer;
-    transition: opacity 0.2s;
+    transition: opacity 0.3s;
 
     &:hover {
-      opacity: 0.85;
+      opacity: 0.55;
     }
   }
 
@@ -254,6 +256,7 @@ const activeItem = 'Home'
     font-size: 23px;
     font-weight: 400;
     line-height: 31px;
+    //letter-spacing: 0.03em;
     color: #000;
   }
 
@@ -279,10 +282,10 @@ const activeItem = 'Home'
     font-weight: 400;
     line-height: 35px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
 
     &:hover {
-      transform: translateY(-1px);
+      transform: translateY(-3px);
     }
 
     /* 主要按钮 - 黑色背景 */
@@ -325,7 +328,7 @@ const activeItem = 'Home'
   &__visual {
     position: absolute;
     left: auto;
-    right: calc(-1 * (100vw - 1368px) / 2); // 突破容器限制，贴到屏幕右边
+    right: calc(-1 * (100vw - 1368px) / 2); // 贴到屏幕右边
     top: 186px;
     width: 782px;
     height: 575px;
