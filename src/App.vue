@@ -3,6 +3,7 @@ import HomePage1 from './components/HomePage1.vue'
 import HomePage2 from './components/HomePage2.vue'
 import HomePage3 from './components/HomePage3.vue'
 import HomePage4 from './components/HomePage4.vue'
+import HomePage5 from './components/HomePage5.vue'
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import HomePage4 from './components/HomePage4.vue'
     <HomePage2 />
     <HomePage3 />
     <HomePage4 />
+    <HomePage5 />
   </div>
 </template>
 

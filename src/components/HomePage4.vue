@@ -4,18 +4,19 @@
 <template>
   <div class="page4-wrapper">
     <section class="page4">
-      <!-- 第四屏标题与副标题：说明智能知识管理核心价值 -->
+      <!-- 页面标题：Smart Knowledge 为黑色，Management 使用紫色突出品牌色 -->
       <h2 class="page4__title">
         Smart Knowledge <span>Management</span>
       </h2>
+      <!-- 副标题：说明知识自动组织的核心价值主张 -->
       <p class="page4__subtitle">
         Your knowledge organizes itself—no folders, no manual tagging, just understanding.
       </p>
 
-      <!-- 双列知识管理功能：左侧聚焦自动化整理，右侧展示时间线能力 -->
+      <!-- 功能展示区：使用 Grid 两列布局，左右各展示一个核心功能 -->
       <div class="page4__features">
+        <!-- 左侧功能：AI 自动组织，使用蓝色光晕作为视觉焦点 -->
         <div class="page4__feature">
-          <!-- 蓝色光晕强调 AI 自动归档 -->
           <div class="page4__halo page4__halo--blue"></div>
           <div class="page4__info">
             <h3 class="page4__feature-title">AI-Powered Organization</h3>
@@ -25,8 +26,8 @@
           </div>
         </div>
 
+        <!-- 右侧功能：时间线与人物关联，使用紫色光晕与左侧形成对比 -->
         <div class="page4__feature">
-          <!-- 紫色光晕突出时间线与人物关联能力 -->
           <div class="page4__halo page4__halo--purple"></div>
           <div class="page4__info">
             <h3 class="page4__feature-title">Timeline &amp; Persona Linking</h3>
@@ -41,9 +42,9 @@
 </template>
 
 <style lang="scss" scoped>
+// 外层容器：从浅紫色渐变到纯白，营造轻盈、专业的视觉感受
 .page4-wrapper {
   width: 100vw;
-  // 与设计保持一致的浅色渐变背景
   background: linear-gradient(180deg, #f9f4ff 0%, #ffffff 100%);
   display: flex;
   justify-content: center;
@@ -57,9 +58,10 @@
   box-sizing: border-box;
   font-family: 'Microsoft YaHei UI', sans-serif;
   color: #1f1f1f;
-  // 整体居中排版
+  // 所有内容居中对齐，符合知识管理页面的简洁风格
   text-align: center;
 
+  // 主标题：强制单行显示，Management 使用品牌紫色
   &__title {
     margin: 0;
     font-size: 50px;
@@ -73,6 +75,7 @@
     }
   }
 
+  // 副标题：使用 fit-content 确保文本宽度自适应，配合 margin auto 实现居中
   &__subtitle {
     margin: 20px auto 0;
     max-width: 800px;
@@ -86,14 +89,15 @@
     margin-left: 10px;
   }
 
+  // 功能展示区：Grid 两列等宽布局，120px 间距保证视觉平衡
   &__features {
     margin: 160px auto 0;
-    // 两列布局呈现两个知识管理能力
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 120px;
   }
 
+  // 单个功能项：垂直堆叠光晕和文字信息，居中对齐
   &__feature {
     position: relative;
     display: flex;
@@ -102,8 +106,8 @@
     gap: 48px;
   }
 
+  // 光晕效果：使用大尺寸圆形 + 强模糊 + 半透明，模拟柔和的光效氛围
   &__halo {
-    // 模拟发光氛围的模糊圆形
     width: 420px;
     height: 420px;
     border-radius: 50%;
@@ -111,14 +115,17 @@
     opacity: 0.9;
   }
 
+  // 蓝色光晕：对应 AI 自动组织功能，传达科技感
   &__halo--blue {
     background: rgba(149, 198, 255, 0.75);
   }
 
+  // 紫色光晕：对应时间线功能，与品牌色呼应
   &__halo--purple {
     background: rgba(204, 166, 255, 0.75);
   }
 
+  // 文字信息容器：限制最大宽度，保持内容可读性
   &__info {
     display: flex;
     flex-direction: column;

@@ -4,11 +4,11 @@
 <template>
   <div class="page3-wrapper">
     <section class="page3">
-      <!-- 第三屏标题：突出功能优势 -->
       <h2 class="page3__title">Powerful Features</h2>
 
+      <!-- 采用左右分栏布局：左侧为主标题区，右侧为三个功能特性展示 -->
       <div class="page3__layout">
-        <!-- 左侧引导文案：强调“Effortless Capture”理念 -->
+        <!-- 左侧主标题区域，通过 transform 微调位置以匹配设计稿 -->
         <div class="page3__intro">
           <h3 class="page3__intro-title">Effortless <span>Capture</span></h3>
           <p class="page3__intro-description">
@@ -16,10 +16,10 @@
           </p>
         </div>
 
-        <!-- 右侧功能点列表：依次展示被动输入、硬件灵活性和开放生态 -->
+        <!-- 右侧功能特性列表，使用垂直堆叠布局，每个特性包含圆形图片和文字说明 -->
         <div class="page3__grid">
+          <!-- 第一行：图片在左，文字在右，展示被动多模态输入能力 -->
           <div class="page3__row">
-            <!-- 功能卡片一：被动多模态输入配合会议场景图 -->
             <div class="page3__media page3__media--circle">
               <img src="../assets/HP3-1.png" alt="会议中自动记录的设备" />
             </div>
@@ -31,8 +31,8 @@
             </div>
           </div>
 
+          <!-- 第二行：使用 reverse 类实现文字在左、图片在右的布局，展示硬件灵活性 -->
           <div class="page3__row page3__row--reverse">
-            <!-- 功能卡片二：可穿戴硬件配合产品矩阵展示 -->
             <div class="page3__row-text">
               <h4 class="page3__feature-title">Flexible Hardware</h4>
               <p class="page3__feature-description">
@@ -44,8 +44,8 @@
             </div>
           </div>
 
+          <!-- 第三行：恢复图片在左、文字在右的布局，展示开放生态能力 -->
           <div class="page3__row">
-            <!-- 功能卡片三：开放生态配合跨设备协同画面 -->
             <div class="page3__media page3__media--circle">
               <img src="../assets/HP3-3.png" alt="跨设备的协同生态" />
             </div>
@@ -63,9 +63,9 @@
 </template>
 
 <style lang="scss" scoped>
+// 外层容器：使用渐变背景从浅蓝过渡到浅紫，营造柔和视觉氛围
 .page3-wrapper {
   width: 100vw;
-  // 渐变背景容器，撑满整屏
   background: linear-gradient(180deg, #eaf4ff 0%, #f4ecff 100%);
   display: flex;
   justify-content: center;
@@ -80,7 +80,7 @@
   box-sizing: border-box;
   font-family: 'Microsoft YaHei UI', sans-serif;
   color: #1f1f1f;
-  // 稍作缩放以留出上下留白空间
+  // 整体缩放 0.95 倍，为页面上下留出呼吸空间，避免内容过于紧凑
   transform: scale(0.95);
   transform-origin: center top;
 
@@ -92,25 +92,24 @@
     text-align: center;
   }
 
+  // 主布局容器：使用 Grid 实现左右分栏，左侧固定宽度 480px，右侧自适应
   &__layout {
     margin-top: 90px;
-    // 左右分栏：左侧文案，右侧功能列表
     display: grid;
     grid-template-columns: 480px 1fr;
     gap: 80px;
     align-items: start;
   }
 
+  // 左侧介绍区域：通过 transform 精确调整位置，使其与右侧内容在视觉上对齐
   &__intro {
     position: relative;
     padding-top: 36px;
     padding-left: 16px;
-    // 左侧整体偏移以对齐视觉
     transform: translate(-166px, 210px);
   }
 
-  
-
+  // 主标题：Effortless 为黑色，Capture 使用品牌蓝色突出显示
   &__intro-title {
     margin: 0;
     font-size: 72px;
@@ -133,14 +132,15 @@
     max-width: 420px;
   }
 
+  // 右侧功能列表容器：垂直堆叠三个功能项，整体向左偏移 50px 以匹配设计稿
   &__grid {
     display: flex;
     flex-direction: column;
     gap: 48px;
-    // 右侧内容整体左移，贴合设计稿
     transform: translateX(-50px);
   }
 
+  // 功能行：使用 Grid 布局，图片固定 312px，文字区域自适应
   &__row {
     display: grid;
     grid-template-columns: 312px 1fr;
@@ -148,11 +148,12 @@
     align-items: center;
   }
 
+  // 反向行：调整列宽比例，文字区域在前，图片区域固定 312px
   &__row--reverse {
-    // 反向行用于图文对调
     grid-template-columns: 1fr 312px;
   }
 
+  // 通过 order 属性调整反向行中元素的视觉顺序，实现图文位置互换
   &__row--reverse .page3__row-text {
     order: 1;
   }
@@ -167,6 +168,7 @@
     gap: 18px;
   }
 
+  // 功能标题：强制单行显示，避免换行影响布局
   &__feature-title {
     margin: 0;
     font-size: 32px;
@@ -183,11 +185,11 @@
     color: #565656;
   }
 
+  // 媒体容器：添加柔和的蓝色阴影，悬停时放大 1.2 倍增强交互感
   &__media {
     position: relative;
     width: 100%;
     overflow: hidden;
-    // 圆形图片阴影与悬停缩放
     box-shadow: 0 20px 44px rgba(136, 170, 255, 0.28);
     transition: transform 0.4s ease;
 
@@ -196,18 +198,13 @@
     }
   }
 
+  // 圆形图片样式：1:1 比例，半透明白色边框与背景融合
   &__media--circle {
     aspect-ratio: 1 / 1;
     border-radius: 50%;
-    // 保持与界面背景融合的白色描边
-    border: 10px solid rgba(255, 255, 255, 0.75);
+    border: 10px solid rgba(244, 244, 244, 0.75);
   }
 
-  &__media--rounded {
-    border-radius: 36px;
-    aspect-ratio: 4 / 3;
-    border: 8px solid rgba(255, 255, 255, 0.65);
-  }
 
   &__media img {
     width: 100%;
