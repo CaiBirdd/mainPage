@@ -66,9 +66,9 @@ deploy-test:
         docker pull 172.16.1.11:80/library/synapnote-frontend:latest
         docker tag 172.16.1.11:80/library/synapnote-frontend:latest synapnote-frontend:latest
         if [ -f docker-compose.yml ]; then
-          docker compose down
+          docker compose down --remove-orphans
         fi
-        docker compose up -d
+        docker compose up -d --remove-orphans
         sleep 5
         docker compose ps
         echo "测试环境部署完成！"
@@ -110,9 +110,9 @@ deploy-prod:
         docker load -i synapnote-frontend.tar
         rm -f synapnote-frontend.tar
         if [ -f docker-compose.yml ]; then
-          docker compose down
+          docker compose down --remove-orphans
         fi
-        docker compose up -d
+        docker compose up -d --remove-orphans
         sleep 5
         docker compose ps
         echo "$BUILD_TAG" > current_version.txt
@@ -216,9 +216,9 @@ rollback-prod:
         docker load -i synapnote-frontend.tar
         rm -f synapnote-frontend.tar
         if [ -f docker-compose.yml ]; then
-          docker compose down
+          docker compose down --remove-orphans
         fi
-        docker compose up -d
+        docker compose up -d --remove-orphans
         sleep 5
         docker compose ps
         echo "$ROLLBACK_TAG" > current_version.txt
