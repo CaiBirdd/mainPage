@@ -1,4 +1,7 @@
 <script setup>
+import hp3Icon1 from '../assets/HP3-1-1.png'
+import hp3Icon2 from '../assets/HP3-2-2.png'
+import hp3Icon3 from '../assets/HP3-3-3.png'
 </script>
 
 <template>
@@ -24,7 +27,13 @@
               <img src="../assets/HP3-1.png" alt="会议中自动记录的设备" />
             </div>
             <div class="page3__row-text">
-              <h4 class="page3__feature-title">Passive &amp; Multi-Modal Input</h4>
+              <h4 class="page3__feature-title">
+                <span class="page3__icon-wrapper page3__icon-wrapper--left">
+                  <img :src="hp3Icon1" alt="" class="page3__title-icon">
+                  <span class="page3__icon-box page3__icon-box--purple"></span>
+                </span>
+                Passive &amp; Multi-Modal Input
+              </h4>
               <p class="page3__feature-description">
                 Always-on audio capture, visual snapshots, and support for files, web links, and social media content.
               </p>
@@ -34,7 +43,13 @@
           <!-- 第二行：使用 reverse 类实现文字在左、图片在右的布局，展示硬件灵活性 -->
           <div class="page3__row page3__row--reverse">
             <div class="page3__row-text">
-              <h4 class="page3__feature-title">Flexible Hardware</h4>
+              <h4 class="page3__feature-title">
+                Flexible Hardware
+                <span class="page3__icon-wrapper page3__icon-wrapper--right">
+                  <img :src="hp3Icon2" alt="" class="page3__title-icon">
+                  <span class="page3__icon-box page3__icon-box--blue"></span>
+                </span>
+              </h4>
               <p class="page3__feature-description">
                 Wearable glasses, clips, pendants, watches, or mobile app fallback.
               </p>
@@ -50,7 +65,13 @@
               <img src="../assets/HP3-3.png" alt="跨设备的协同生态" />
             </div>
             <div class="page3__row-text">
-              <h4 class="page3__feature-title">Open Ecosystem</h4>
+              <h4 class="page3__feature-title">
+                <span class="page3__icon-wrapper page3__icon-wrapper--left">
+                  <img :src="hp3Icon3" alt="" class="page3__title-icon">
+                  <span class="page3__icon-box page3__icon-box--yellow"></span>
+                </span>
+                Open Ecosystem
+              </h4>
               <p class="page3__feature-description">
                 Integrate existing devices and third-party content seamlessly.
               </p>
@@ -106,7 +127,7 @@
     position: relative;
     padding-top: 36px;
     padding-left: 16px;
-    transform: translate(-166px, 210px);
+    transform: translate(-210px, 260px);
   }
 
   // 主标题：Effortless 为黑色，Capture 使用品牌蓝色突出显示
@@ -137,7 +158,7 @@
     display: flex;
     flex-direction: column;
     gap: 48px;
-    transform: translateX(-50px);
+    transform: translateX(-58px);
   }
 
   // 功能行：使用 Grid 布局，图片固定 312px，文字区域自适应
@@ -175,6 +196,61 @@
     font-weight: 600;
     line-height: 1.3em;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  // 图标包装容器
+  &__icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+ 
+  }
+
+  &__icon-wrapper--left {
+    order: -1;
+  }
+
+  &__icon-wrapper--right {
+    order: 1;
+  }
+
+  // 标题图标样式
+  &__title-icon {
+    width: 31px;
+    height: 31px;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+  }
+
+  // 图标下方的小方块
+  &__icon-box {
+    position: absolute;
+    width: 43px;
+    height: 43px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__icon-box--purple {
+    background: #F4EDFB;
+  }
+
+  &__icon-box--blue {
+    background: #EAF3FB;
+  }
+
+  &__icon-box--yellow {
+    background: #FBFAEA;
   }
 
   &__feature-description {

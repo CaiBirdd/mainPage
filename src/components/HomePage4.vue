@@ -1,4 +1,6 @@
 <script setup>
+import hp4Gif1 from '../assets/HP4-1.gif'
+import hp4Gif2 from '../assets/HP4-2.gif' //时间线与人物关联 gif
 </script>
 
 <template>
@@ -17,7 +19,10 @@
       <div class="page4__features">
         <!-- 左侧功能：AI 自动组织，使用蓝色光晕作为视觉焦点 -->
         <div class="page4__feature">
-          <div class="page4__halo page4__halo--blue"></div>
+          <div class="page4__halo-container">
+            <div class="page4__halo page4__halo--blue"></div>
+            <img :src="hp4Gif1" alt="AI 自动组织" class="page4__image1">
+          </div>
           <div class="page4__info">
             <h3 class="page4__feature-title">AI-Powered Organization</h3>
             <p class="page4__feature-description">
@@ -28,7 +33,10 @@
 
         <!-- 右侧功能：时间线与人物关联，使用紫色光晕与左侧形成对比 -->
         <div class="page4__feature">
-          <div class="page4__halo page4__halo--purple"></div>
+          <div class="page4__halo-container">
+            <div class="page4__halo page4__halo--purple"></div>
+            <img :src="hp4Gif2" alt="时间线与人物关联" class="page4__image2"></img>
+          </div>
           <div class="page4__info">
             <h3 class="page4__feature-title">Timeline &amp; Persona Linking</h3>
             <p class="page4__feature-description">
@@ -91,7 +99,7 @@
 
   // 功能展示区：Grid 两列等宽布局，120px 间距保证视觉平衡
   &__features {
-    margin: 160px auto 0;
+    margin: 80px auto 0;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 120px;
@@ -106,8 +114,19 @@
     gap: 48px;
   }
 
+  // 光晕容器：用于定位光晕和图片
+  &__halo-container {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   // 光晕效果：使用大尺寸圆形 + 强模糊 + 半透明，模拟柔和的光效氛围
   &__halo {
+    position: absolute;
     width: 420px;
     height: 420px;
     border-radius: 50%;
@@ -120,17 +139,35 @@
     background: rgba(149, 198, 255, 0.75);
   }
 
+  // GIF图片样式：居中显示在光晕上
+  &__image1 {
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    object-fit: contain;
+    z-index: 10;
+    pointer-events: none;
+  }
+  
   // 紫色光晕：对应时间线功能，与品牌色呼应
   &__halo--purple {
     background: rgba(204, 166, 255, 0.75);
   }
+  &__image2 {
+    position: absolute;
+    width: 550px;
+    height: 550px;
+    object-fit: contain;
+    z-index: 10;
+    pointer-events: none;
 
+  }
   // 文字信息容器：限制最大宽度，保持内容可读性
   &__info {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    max-width: 440px;
+    max-width: 480px;
   }
 
   &__feature-title {
@@ -149,6 +186,7 @@
   }
 }
 
+
 @media (max-width: 1280px) {
   .page4 {
     padding: 120px 80px 140px;
@@ -163,6 +201,11 @@
 
     &__features {
       gap: 80px;
+    }
+
+    &__halo-container {
+      width: 360px;
+      height: 360px;
     }
 
     &__halo {
@@ -190,10 +233,20 @@
       gap: 64px;
     }
 
+    &__halo-container {
+      width: 280px;
+      height: 280px;
+    }
+
     &__halo {
       width: 280px;
       height: 280px;
       filter: blur(120px);
+    }
+
+    &__image1 {
+      width: 150px;
+      height: 150px;
     }
   }
 }
