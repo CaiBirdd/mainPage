@@ -9,7 +9,7 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     <section class="page3">
       <h2 class="page3__title">Powerful Features</h2>
 
-      <!-- 采用左右分栏布局：左侧为主标题区，右侧为三个功能特性展示 -->
+      <!-- 采用左右分栏布局：左2侧为主标题区，右侧为三个功能特性展示 -->
       <div class="page3__layout">
         <!-- 左侧主标题区域，通过 transform 微调位置以匹配设计稿 -->
         <div class="page3__intro">
