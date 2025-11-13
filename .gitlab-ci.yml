@@ -126,6 +126,7 @@ deploy-prod:
 # 回滚生产环境
 rollback-prod:
   stage: rollback
+  allow_failure: true
   image: docker:24-cli
   before_script:
     - |
