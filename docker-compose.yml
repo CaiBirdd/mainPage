@@ -1,0 +1,12 @@
+services:
+  synapnote-frontend:
+    image: synapnote-frontend:latest
+    container_name: synapnote-frontend
+    build:
+      context: .
+      tags:
+        - synapnote-frontend:latest
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
