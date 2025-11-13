@@ -183,7 +183,7 @@ const activeItem = 'Home'
     transition: color 0.3s, transform 0.3s;
 
     &:hover {
-      color: #000000;
+      color: #000;
       transform: scale(1.1);
     }
   }
@@ -499,4 +499,4 @@ const activeItem = 'Home'
     }
   }
 }
-</style>
+</style> 

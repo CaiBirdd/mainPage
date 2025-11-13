@@ -208,7 +208,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
- 
   }
 
   &__icon-wrapper--left {
@@ -280,7 +279,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     border-radius: 50%;
     border: 10px solid rgba(244, 244, 244, 0.75);
   }
-
 
   &__media img {
     width: 100%;
@@ -355,4 +353,5 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
   }
 }
 </style>
+
 
