@@ -55,10 +55,39 @@ deploy-test:
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -H 172.16.1.19 >> ~/.ssh/known_hosts || echo "警告:ssh-keyscan 失败，但将继续执行（已设置 StrictHostKeyChecking=no）"
     - docker login -u admin -p password 172.16.1.11:80
+    - |
+      echo "根据 env.example 模板生成 .env 文件..."
+      if [ -f env.example ]; then
+        while IFS= read -r line || [ -n "$line" ]; do
+          if [ -n "$line" ] && [ "$(echo "$line" | cut -c1)" != "#" ]; then
+            key=$(echo "$line" | cut -d'=' -f1)
+            placeholder=$(echo "$line" | cut -d'=' -f2-)
+            if [ -n "$key" ] && [ -n "$placeholder" ]; then
+              var_name="${key}_TEST"
+              eval "var_value=\$$var_name"
+              if [ -n "$var_value" ]; then
+                echo "${key}=${var_value}"
+              else
+                echo "警告: 环境变量 $var_name 未设置，使用占位符 $placeholder" >&2
+                echo "${key}=${placeholder}"
+              fi
+            else
+              echo "$line"
+            fi
+          else
+            echo "$line"
+          fi
+        done < env.example > .env
+        echo ".env 文件已生成"
+      else
+        echo "错误: env.example 文件不存在"
+        exit 1
+      fi
   script:
     - echo "部署到测试环境 (172.16.1.19)..."
     - ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no dev@172.16.1.19 "mkdir -p /home/dev/gitlabci/synapnote-frontend"
     - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose.yml dev@172.16.1.19:/home/dev/gitlabci/synapnote-frontend/docker-compose.yml
+    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no .env dev@172.16.1.19:/home/dev/gitlabci/synapnote-frontend/.env
     - |
       ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no dev@172.16.1.19 << 'EOF'
         cd /home/dev/gitlabci/synapnote-frontend
@@ -68,7 +97,7 @@ deploy-test:
         if [ -f docker-compose.yml ]; then
           docker compose down --remove-orphans
         fi
-        docker compose up -d --remove-orphans
+        docker compose up -d
         sleep 5
         docker compose ps
         echo "测试环境部署完成！"
@@ -95,6 +124,36 @@ deploy-prod:
         BUILD_TAG=$(date +%Y%m%d-%H%M%S)-${CI_COMMIT_SHORT_SHA}
         echo "未找到 BUILD_TAG，使用当前时间戳: $BUILD_TAG"
       fi
+    - |
+      echo "根据 env.example 模板生成 .env 文件..."
+      if [ -f env.example ]; then
+        while IFS= read -r line || [ -n "$line" ]; do
+          if [ -n "$line" ] && [ "$(echo "$line" | cut -c1)" != "#" ]; then
+            key=$(echo "$line" | cut -d'=' -f1)
+            placeholder=$(echo "$line" | cut -d'=' -f2-)
+            if [ -n "$key" ] && [ -n "$placeholder" ]; then
+              var_name="${key}_PROD"
+              eval "var_value=\$$var_name"
+              if [ -n "$var_value" ]; then
+                echo "${key}=${var_value}"
+              else
+                echo "警告: 环境变量 $var_name 未设置，使用占位符 $placeholder" >&2
+                echo "${key}=${placeholder}"
+              fi
+            else
+              echo "$line"
+            fi
+          else
+            echo "$line"
+          fi
+        done < env.example > .env
+        echo ".env 文件已生成"
+        cp .env "env_${BUILD_TAG}.env"
+        echo "环境变量快照已保存: env_${BUILD_TAG}.env"
+      else
+        echo "错误: env.example 文件不存在"
+        exit 1
+      fi
     - docker pull 172.16.1.11:80/library/synapnote-frontend:latest
     - docker tag 172.16.1.11:80/library/synapnote-frontend:latest synapnote-frontend:latest
     - docker save synapnote-frontend:latest -o synapnote-frontend.tar
@@ -103,6 +162,8 @@ deploy-prod:
     - echo "部署到生产环境 (3.25.121.26)，版本:$BUILD_TAG"
     - ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 "mkdir -p /home/ubuntu/gitlabci/synapnote-frontend"
     - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose-prod.yml ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/docker-compose-prod.yml
+    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no .env ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/.env
+    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no "env_${BUILD_TAG}.env" ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/"env_${BUILD_TAG}.env"
     - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no synapnote-frontend.tar ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/synapnote-frontend.tar
     - |
       ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 << EOF
@@ -112,7 +173,7 @@ deploy-prod:
         if [ -f docker-compose-prod.yml ]; then
           docker compose -f docker-compose-prod.yml down --remove-orphans
         fi
-        docker compose -f docker-compose-prod.yml up -d --remove-orphans
+        docker compose -f docker-compose-prod.yml up -d
         sleep 5
         docker compose -f docker-compose-prod.yml ps
         echo "$BUILD_TAG" > current_version.txt
@@ -203,6 +264,44 @@ rollback-prod:
       fi
       echo ""
       echo "准备回滚到版本: $ROLLBACK_TAG"
+    - |
+      echo "检查环境变量快照文件..."
+      ENV_SNAPSHOT_EXISTS=$(ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 "test -f /home/ubuntu/gitlabci/synapnote-frontend/env_${ROLLBACK_TAG}.env && echo 'yes' || echo 'no'")
+      if [ "$ENV_SNAPSHOT_EXISTS" = "yes" ]; then
+        echo "找到环境变量快照文件 env_${ROLLBACK_TAG}.env，将使用该快照进行回滚"
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 "cp /home/ubuntu/gitlabci/synapnote-frontend/env_${ROLLBACK_TAG}.env /home/ubuntu/gitlabci/synapnote-frontend/.env"
+        echo "环境变量快照已恢复"
+      else
+        echo "警告: 未找到环境变量快照文件 env_${ROLLBACK_TAG}.env"
+        echo "将使用当前的环境变量配置（基于 env.example 和 GitLab CI 变量）"
+        if [ -f env.example ]; then
+          while IFS= read -r line || [ -n "$line" ]; do
+            if [ -n "$line" ] && [ "$(echo "$line" | cut -c1)" != "#" ]; then
+              key=$(echo "$line" | cut -d'=' -f1)
+              placeholder=$(echo "$line" | cut -d'=' -f2-)
+              if [ -n "$key" ] && [ -n "$placeholder" ]; then
+                var_name="${key}_PROD"
+                eval "var_value=\$$var_name"
+                if [ -n "$var_value" ]; then
+                  echo "${key}=${var_value}"
+                else
+                  echo "警告: 环境变量 $var_name 未设置，使用占位符 $placeholder" >&2
+                  echo "${key}=${placeholder}"
+                fi
+              else
+                echo "$line"
+              fi
+            else
+              echo "$line"
+            fi
+          done < env.example > .env
+          echo ".env 文件已生成（使用当前配置）"
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no .env ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/.env
+        else
+          echo "错误: env.example 文件不存在"
+          exit 1
+        fi
+      fi
     - docker pull 172.16.1.11:80/library/synapnote-frontend:$ROLLBACK_TAG || (echo "错误:无法拉取镜像 $ROLLBACK_TAG" && exit 1)
     - docker tag 172.16.1.11:80/library/synapnote-frontend:$ROLLBACK_TAG synapnote-frontend:latest
     - docker save synapnote-frontend:latest -o synapnote-frontend.tar
@@ -220,7 +319,7 @@ rollback-prod:
         if [ -f docker-compose-prod.yml ]; then
           docker compose -f docker-compose-prod.yml down --remove-orphans
         fi
-        docker compose -f docker-compose-prod.yml up -d --remove-orphans
+        docker compose -f docker-compose-prod.yml up -d
         sleep 5
         docker compose -f docker-compose-prod.yml ps
         echo "$ROLLBACK_TAG" > current_version.txt
