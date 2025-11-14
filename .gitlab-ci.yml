@@ -102,25 +102,26 @@ deploy-prod:
   script:
     - echo "部署到生产环境 (3.25.121.26)，版本:$BUILD_TAG"
     - ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 "mkdir -p /home/ubuntu/gitlabci/synapnote-frontend"
-    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose.yml ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/docker-compose.yml
+    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose-prod.yml ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/docker-compose-prod.yml
     - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no synapnote-frontend.tar ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/synapnote-frontend.tar
     - |
       ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 << EOF
         cd /home/ubuntu/gitlabci/synapnote-frontend
         docker load -i synapnote-frontend.tar
         rm -f synapnote-frontend.tar
-        if [ -f docker-compose.yml ]; then
-          docker compose down --remove-orphans
+        if [ -f docker-compose-prod.yml ]; then
+          docker compose -f docker-compose-prod.yml down --remove-orphans
         fi
-        docker compose up -d --remove-orphans
+        docker compose -f docker-compose-prod.yml up -d --remove-orphans
         sleep 5
-        docker compose ps
+        docker compose -f docker-compose-prod.yml ps
         echo "$BUILD_TAG" > current_version.txt
         echo "$(date +%Y-%m-%d\ %H:%M:%S) - $BUILD_TAG" >> version_history.txt
         echo "生产环境部署完成！当前版本: $BUILD_TAG"
       EOF
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    #- if: $CI_COMMIT_BRANCH
       when: manual
 
 # 回滚生产环境
@@ -209,23 +210,24 @@ rollback-prod:
   script:
     - echo "回滚生产环境到版本:$ROLLBACK_TAG"
     - ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 "mkdir -p /home/ubuntu/gitlabci/synapnote-frontend"
-    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose.yml ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/docker-compose.yml
+    - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose-prod.yml ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/docker-compose-prod.yml
     - scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no synapnote-frontend.tar ubuntu@3.25.121.26:/home/ubuntu/gitlabci/synapnote-frontend/synapnote-frontend.tar
     - |
       ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@3.25.121.26 << EOF
         cd /home/ubuntu/gitlabci/synapnote-frontend
         docker load -i synapnote-frontend.tar
         rm -f synapnote-frontend.tar
-        if [ -f docker-compose.yml ]; then
-          docker compose down --remove-orphans
+        if [ -f docker-compose-prod.yml ]; then
+          docker compose -f docker-compose-prod.yml down --remove-orphans
         fi
-        docker compose up -d --remove-orphans
+        docker compose -f docker-compose-prod.yml up -d --remove-orphans
         sleep 5
-        docker compose ps
+        docker compose -f docker-compose-prod.yml ps
         echo "$ROLLBACK_TAG" > current_version.txt
         echo "$(date +%Y-%m-%d\ %H:%M:%S) - $ROLLBACK_TAG (回滚)" >> version_history.txt
         echo "生产环境回滚完成！当前版本: $ROLLBACK_TAG"
       EOF
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    #- if: $CI_COMMIT_BRANCH
       when: manual
