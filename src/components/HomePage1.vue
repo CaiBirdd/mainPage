@@ -1,11 +1,10 @@
 <script setup>
+import { useRoute } from 'vue-router'
 // 导入图片资源
 import arrowRight from '../assets/arrow-right.svg'
 import slackLogo from '../assets/slack-logo.svg'
 
-// 导航配置
-const navItems = ['Home', 'Community', 'Price', 'Docs']
-const activeItem = 'Home'
+const route = useRoute()
 </script>
 
 <template>
@@ -26,13 +25,17 @@ const activeItem = 'Home'
 
         <!-- 导航菜单 -->
         <nav class="home__nav" aria-label="主导航">
-          <a
-            v-for="item in navItems"
-            :key="item"
-            href="#"
-            :class="['home__nav-link', { 'is-active': item === activeItem }]"
-          >
-            {{ item }}
+          <router-link to="/" class="home__nav-link">
+            Home
+          </router-link>
+          <router-link to="/community" class="home__nav-link">
+            Community
+          </router-link>
+          <router-link to="/price" class="home__nav-link">
+            Price
+          </router-link>
+          <a href="#" class="home__nav-link">
+            Docs
           </a>
         </nav>
 

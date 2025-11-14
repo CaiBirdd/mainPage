@@ -75,15 +75,15 @@ import footerIcon3 from '../assets/HP8-footer-3.png' // Documentation 图标
           <!-- 链接行：三个链接横向排列，使用 space-between 分布 -->
           <div class="page8__footer-links-row">
             <!-- Community Stories 链接 -->
-            <a href="#" class="page8__footer-link">
+            <router-link to="/community" class="page8__footer-link">
               <img :src="footerIcon1" alt="Community Stories" />
               <span>Community Stories</span>
-            </a>
+            </router-link>
             <!-- Pricing & Plans 链接 -->
-            <a href="#" class="page8__footer-link">
+            <router-link to="/price" class="page8__footer-link">
               <img :src="footerIcon2" alt="Pricing & Plans" />
               <span>Pricing & Plans</span>
-            </a>
+            </router-link>
             <!-- Documentation 链接 -->
             <a href="#" class="page8__footer-link">
               <img :src="footerIcon3" alt="Documentation" />
