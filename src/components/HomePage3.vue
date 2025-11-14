@@ -9,7 +9,7 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     <section class="page3">
       <h2 class="page3__title">Powerful Features</h2>
 
-      <!-- 采用左右分栏布局：左2侧为主标题区，右侧为三个功能特性展示 -->
+      <!-- 采用左右分栏布局：左侧为主标题区，右侧为三个功能特性展示 -->
       <div class="page3__layout">
         <!-- 左侧主标题区域，通过 transform 微调位置以匹配设计稿 -->
         <div class="page3__intro">
@@ -58,7 +58,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
               <img src="../assets/HP3-2.png" alt="多种智能可穿戴设备" />
             </div>
           </div>
-
           <!-- 第三行：恢复图片在左、文字在右的布局，展示开放生态能力 -->
           <div class="page3__row">
             <div class="page3__media page3__media--circle">
@@ -208,7 +207,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
- 
   }
 
   &__icon-wrapper--left {
@@ -280,8 +278,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     border-radius: 50%;
     border: 10px solid rgba(244, 244, 244, 0.75);
   }
-
-
   &__media img {
     width: 100%;
     height: 100%;
@@ -356,3 +352,7 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
 }
 </style>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
