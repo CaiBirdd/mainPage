@@ -35,7 +35,7 @@ import hp4Gif2 from '../assets/HP4-2.gif' //时间线与人物关联 gif
         <div class="page4__feature">
           <div class="page4__halo-container">
             <div class="page4__halo page4__halo--purple"></div>
-            <img :src="hp4Gif2" alt="时间线与人物关联" class="page4__image2"></img>
+            <img :src="hp4Gif2" alt="时间线与人物关联" class="page4__image2">
           </div>
           <div class="page4__info">
             <h3 class="page4__feature-title">Timeline &amp; Persona Linking</h3>
@@ -99,7 +99,7 @@ import hp4Gif2 from '../assets/HP4-2.gif' //时间线与人物关联 gif
 
   // 功能展示区：Grid 两列等宽布局，120px 间距保证视觉平衡
   &__features {
-    margin: 80px auto 0;
+    margin: 160px auto 0;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 120px;
@@ -160,8 +160,8 @@ import hp4Gif2 from '../assets/HP4-2.gif' //时间线与人物关联 gif
     object-fit: contain;
     z-index: 10;
     pointer-events: none;
-
   }
+
   // 文字信息容器：限制最大宽度，保持内容可读性
   &__info {
     display: flex;
@@ -185,7 +185,6 @@ import hp4Gif2 from '../assets/HP4-2.gif' //时间线与人物关联 gif
     color: #5d5d5d;
   }
 }
-
 
 @media (max-width: 1280px) {
   .page4 {
@@ -248,7 +247,11 @@ import hp4Gif2 from '../assets/HP4-2.gif' //时间线与人物关联 gif
       width: 150px;
       height: 150px;
     }
+
+    &__image2 {
+      width: 150px;
+      height: 150px;
+    }
   }
 }
 </style>
-

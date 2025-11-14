@@ -58,12 +58,7 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
               <img src="../assets/HP3-2.png" alt="多种智能可穿戴设备" />
             </div>
           </div>
-
-<<<<<<< HEAD
           <!-- 第三行：恢复图片在左、文字在右的布局，展示开放生态能力 -->
-=======
-          <!-- 第三行：恢复图片在左 文字在右的布局，展示开放生态能力 -->
->>>>>>> a16f8120fd3785a7886b8c8756e414059ecb5d61
           <div class="page3__row">
             <div class="page3__media page3__media--circle">
               <img src="../assets/HP3-3.png" alt="跨设备的协同生态" />
@@ -212,7 +207,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
- 
   }
 
   &__icon-wrapper--left {
@@ -284,8 +278,6 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
     border-radius: 50%;
     border: 10px solid rgba(244, 244, 244, 0.75);
   }
-
-
   &__media img {
     width: 100%;
     height: 100%;
@@ -360,3 +352,7 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
 }
 </style>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
