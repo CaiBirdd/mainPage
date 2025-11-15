@@ -44,7 +44,7 @@
           :data-card-index="index"
         >
         <!-- 装饰性引用标记（左上角大引号） -->
-        <div class="quotation-mark">"</div>
+        <div class="quotation-mark">“</div>
         
         <!-- 客户评价内容 -->
         <p class="testimonial-quote">{{ testimonial.quote }}</p>
