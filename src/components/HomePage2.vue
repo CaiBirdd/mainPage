@@ -101,18 +101,21 @@
     filter: blur(200px);
     opacity: 0.75;
 
+    // 使用相对于容器中心的定位，确保在不同屏幕尺寸下保持固定位置
+    // 原始设计在1440px宽度下：蓝圈left为320px，容器中心为720px，距离中心400px
     &--blue {
       width: 748px;
       height: 730px;
-      left: 320px;
+      left: calc(50% - 400px);
       top: 172px;
       background: rgba(4, 133, 254, 0.51);
     }
 
+    // 原始设计在1440px宽度下：紫圈left为474px，容器中心为720px，距离中心246px
     &--purple {
       width: 492px;
       height: 492px;
-      left: 474px;
+      left: calc(50% - 246px);
       top: 356px;
       background: rgba(212, 163, 255, 0.875);
     }
