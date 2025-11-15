@@ -17,7 +17,10 @@ import cardPanelBg from '../assets/HP6-card3.png'
               backgroundImage: `url(${cardSyncBg})`
             }"
           ></div>
-          <span class="page6__card-caption">Multi-Platform Sync</span>
+        </div>
+        <div class="page6__card-label page6__card-label--right">
+          <div class="page6__card-line page6__card-line--right"></div>
+          <span class="page6__card-label-text">Multi-Platform Sync</span>
         </div>
 
         <!-- 隐私优先特性卡片 -->
@@ -28,7 +31,10 @@ import cardPanelBg from '../assets/HP6-card3.png'
               backgroundImage: `url(${cardPrivacyBg})`
             }"
           ></div>
-          <span class="page6__card-caption">Privacy First</span>
+        </div>
+        <div class="page6__card-label page6__card-label--left">
+          <div class="page6__card-line page6__card-line--left"></div>
+          <span class="page6__card-label-text">Privacy First</span>
         </div>
 
         <!-- 安全与可访问性特性面板 -->
@@ -109,15 +115,30 @@ import cardPanelBg from '../assets/HP6-card3.png'
     min-height: 600px;
     transform: scale(0.95);
     transform-origin: center center;
+    
+    // 标签位置调整变量
+    // 向右标签（Multi-Platform Sync）
+    --label-right-top: -150px;
+    --label-right-left: 458px;
+    --label-right-vertical-offset: 0px;
+    --label-right-line-width: 220px;
+    --label-right-text-gap: 18px;
+    
+    // 向左标签（Privacy First）
+    --label-left-top: 380px;
+    --label-left-left: -150px;
+    --label-left-vertical-offset: 0px;
+    --label-left-line-width: 190px;
+    --label-left-text-gap: 18px;
   }
 
   // 特性卡片基础样式
   &__card {
     position: absolute;
     width: 568px;
-    height: 360px;
+    height: 560px;
     border-radius: 32px;
-    box-shadow: 0 24px 46px rgba(71, 90, 150, 0.18);
+    box-shadow: 5px 24px 46px rgba(71, 90, 150, 0.18);
     background: #f6f0ff;
     display: flex;
     flex-direction: column;
@@ -135,38 +156,96 @@ import cardPanelBg from '../assets/HP6-card3.png'
 
   // 多平台同步卡片定位和渐变背景
   &__card--sync {
-    top: -100px;
-    left: -150px;
-    background: linear-gradient(180deg, #f6edff 0%, #f0f8ff 100%);
+    top: -280px;
+    left: -50px;
+    background: linear-gradient(180deg, #ebd8ff 0%, #ebf5ff 100%);
   }
 
   // 隐私优先卡片定位和渐变背景
   &__card--privacy {
-    bottom: -55px;
-    left: -150px;
-    background: linear-gradient(180deg, #f6f6ff 0%, #eef5ff 100%);
+    bottom: -200px;
+    left: 150px;
+    background: linear-gradient(180deg, #d2d2fd 0%, #e4f0ff 100%);
+    z-index: 1;
   }
 
   // 卡片媒体图片容器
   &__card-media {
-    width: 650px;
-    height: 330px;
+    width: 530px;
+    height: 320px;
     border-radius: 34px;
     background-position: center;
-    background-size: cover;
+    background-size: cover;//图片完全覆盖容器
     background-repeat: no-repeat;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);//内阴影，白色，0.45透明度
   }
 
-  // 卡片标题文字
-  &__card-caption {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    line-height: 18px;
-    font-size: 18px;
+  // 卡片标签容器
+  &__card-label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  // 向右的标签（sync卡片）
+  // sync卡片：top: -280px, left: -50px, width: 568px, height: 560px
+  // 卡片中心垂直位置：-280px + 280px = 0px
+  // 卡片右边缘：-50px + 568px = 518px
+  &__card-label--right {
+    top: var(--label-right-top);
+    left: var(--label-right-left);
+    transform: translateY(calc(-50% + var(--label-right-vertical-offset)));
+    flex-direction: row;
+  }
+
+  // 向左的标签（privacy卡片）
+  // privacy卡片：bottom: -200px, left: 150px, width: 568px, height: 560px
+  // visual min-height: 600px，卡片top = 600 - 560 - 200 = -160px
+  // 卡片中心垂直位置：-160px + 280px = 120px
+  // 卡片左边缘：150px
+  &__card-label--left {
+    top: var(--label-left-top);
+    left: var(--label-left-left);
+    transform: translateY(calc(-50% + var(--label-left-vertical-offset)));
+    flex-direction: row-reverse;
+  }
+
+  // 连接线
+  &__card-line {
+    height: 1.5px;
+    background: #1f1f1f;
+    flex-shrink: 0;
+  }
+
+  // 向右的线条宽度
+  &__card-line--right {
+    width: var(--label-right-line-width);
+  }
+
+  // 向左的线条需要翻转方向
+  &__card-line--left {
+    width: var(--label-left-line-width);
+    transform: scaleX(-1);
+  }
+
+  // 标签文字
+  &__card-label-text {
+    font-size: 22px;
     font-weight: 600;
-    letter-spacing: 0.04em;
-    color: #2f2f2f;
+    color: #1f1f1f;
+    white-space: nowrap;
+  }
+
+  // 向右标签的文字间距
+  &__card-label--right &__card-label-text {
+    margin-left: var(--label-right-text-gap);
+  }
+
+  // 向左标签的文字间距
+  &__card-label--left &__card-label-text {
+    margin-right: var(--label-left-text-gap);
   }
 
   // 特性面板容器，包含渐变背景和背景图片
@@ -213,19 +292,23 @@ import cardPanelBg from '../assets/HP6-card3.png'
 
   // 面板主标题
   &__panel-title {
+    position: relative;
     margin: 0;
-    font-size: 64px;
+    font-size: 60px;
     font-weight: 700;
     line-height: 1.15;
+    left: 90px;
   }
 
   // 面板副标题
   &__panel-subtitle {
+    position: relative;
     margin: 0;
     font-size: 22px;
     font-weight: 400;
     line-height: 1.6;
     color: rgba(16, 16, 16, 0.84);
+    left: 90px;
   }
 
   // 特性列表容器
@@ -237,7 +320,8 @@ import cardPanelBg from '../assets/HP6-card3.png'
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 32px;
+    left: 90px;
   }
 
   // 特性列表项
@@ -320,6 +404,10 @@ import cardPanelBg from '../assets/HP6-card3.png'
     &__card-media {
       width: 264px;
       height: 168px;
+    }
+
+    &__card-label {
+      display: none;
     }
   }
 

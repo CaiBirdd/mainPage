@@ -1,10 +1,8 @@
 <script setup>
-import { useRoute } from 'vue-router'
 // 导入图片资源
 import arrowRight from '../assets/arrow-right.svg'
 import slackLogo from '../assets/slack-logo.svg'
 
-const route = useRoute()
 </script>
 
 <template>
@@ -331,7 +329,8 @@ const route = useRoute()
   &__visual {
     position: absolute;
     left: auto;
-    right: calc(-1 * (100vw - 1368px) / 2); // 贴到屏幕右边
+    //right: calc(-1 * (100vw - 1368px) / 2); // 贴到屏幕右边 缩小容易出问题
+    right: -100px;
     top: 186px;
     width: 782px;
     height: 575px;
