@@ -118,15 +118,15 @@ import cardPanelBg from '../assets/HP6-card3.png'
     
     // 标签位置调整变量
     // 向右标签（Multi-Platform Sync）
-    --label-right-top: -150px;
-    --label-right-left: 458px;
+    --label-right-top: -140px;
+    --label-right-left: 358px;
     --label-right-vertical-offset: 0px;
-    --label-right-line-width: 220px;
+    --label-right-line-width: 320px;
     --label-right-text-gap: 18px;
     
     // 向左标签（Privacy First）
-    --label-left-top: 380px;
-    --label-left-left: -150px;
+    --label-left-top: 410px;
+    --label-left-left: -180px;
     --label-left-vertical-offset: 0px;
     --label-left-line-width: 190px;
     --label-left-text-gap: 18px;
@@ -156,15 +156,15 @@ import cardPanelBg from '../assets/HP6-card3.png'
 
   // 多平台同步卡片定位和渐变背景
   &__card--sync {
-    top: -280px;
-    left: -50px;
+    top: -270px;
+    left: -160px;
     background: linear-gradient(180deg, #ebd8ff 0%, #ebf5ff 100%);
   }
 
   // 隐私优先卡片定位和渐变背景
   &__card--privacy {
     bottom: -200px;
-    left: 150px;
+    left: 80px;
     background: linear-gradient(180deg, #d2d2fd 0%, #e4f0ff 100%);
     z-index: 1;
   }
@@ -232,7 +232,7 @@ import cardPanelBg from '../assets/HP6-card3.png'
 
   // 标签文字
   &__card-label-text {
-    font-size: 22px;
+    font-size: 25px;
     font-weight: 600;
     color: #1f1f1f;
     white-space: nowrap;
@@ -252,7 +252,7 @@ import cardPanelBg from '../assets/HP6-card3.png'
   &__panel {
     position: absolute;
     top: -110px;
-    right: -300px;
+    right: -190px;
     width: 920px;
     min-height: 760px;
     padding: 80px 96px;
