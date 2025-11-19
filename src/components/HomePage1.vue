@@ -327,7 +327,7 @@ import slackLogo from '../assets/slack-logo.svg'
     .visual {
       position: absolute;
       left: auto;
-      right: -66px;
+      right: -77px;
       top: 186px;
       width: 782px;
       height: 575px;
