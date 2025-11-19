@@ -351,8 +351,3 @@ import hp3Icon3 from '../assets/HP3-3-3.png'
   }
 }
 </style>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/main
