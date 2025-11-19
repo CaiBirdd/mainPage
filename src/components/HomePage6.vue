@@ -402,6 +402,10 @@ import cardPanelBg from '../assets/HP6-card3.png'
         display: none;
       }
     }
+
+    &__card-label {
+      display: none;
+    }
   }
 }
 
